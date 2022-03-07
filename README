@@ -1,0 +1,30 @@
+
+# Setup Go on Fedora 35
+
+wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz
+
+GOROOT=/usr/local/go
+GO111MODULE=on
+GOPATH=~/go
+
+source ~/.bashrc
+
+# go version
+go version go1.17.5 linux/amd64
+
+# generate the grpc code from the api.proto file
+
+protoc --go_out=plugins=grpc:proto api.proto
+
+# Start the server:
+
+go run server/server.go
+
+# Run the client:
+
+go run client/client.go --command create --devlist /dev/sda /dev/sdb
+go run client/client.go --command delete
+go run client/client.go --command resize
+go run client/client.go --command list
+

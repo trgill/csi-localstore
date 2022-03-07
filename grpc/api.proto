@@ -1,0 +1,22 @@
+
+syntax = "proto3";
+
+option go_package = "storage/api";
+
+package api;
+
+// Local storage service definition.
+service LocalStorage {
+    rpc CreateVolume (StorageRequest) returns (StorageReply) {}
+    rpc RemoveVolume(StorageRequest) returns (StorageReply);
+    rpc ResizeVolume(StorageRequest) returns (StorageReply);
+    rpc ListVolumes(StorageRequest) returns (StorageReply);
+}
+
+message StorageRequest {
+  string name = 1;
+}
+
+message StorageReply {
+  string message = 1;
+}
